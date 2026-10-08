@@ -96,7 +96,7 @@ main { flex: 1; outline: none; }
   .logo-panel { width: min(200px, 62vw); }
   .home-wordmark { display: flex; justify-content: center; gap: .21em; font-size: clamp(2.75rem, 10.3vw, 4.5rem); line-height: 1.05; text-align: center; }
   .home-baseline { margin-top: 2rem; gap: 1.4rem; }
-  .home-baseline p { font-size: .9375rem; }
+  .home-baseline p { font-size: 1rem; }
   .page-content { padding-block: 3rem 4rem; }
   .page-heading { margin-bottom: 2.75rem; }
   .page-heading h1 { font-size: clamp(2.8rem, 11vw, 4.5rem); }

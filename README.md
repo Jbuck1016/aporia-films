@@ -14,7 +14,7 @@ Confirmed: Aporia Films is a film production company; Andy Arango and Javi Arang
 
 Temporary neutral copy: “A film production company.” and “Let’s talk.” Three project cards explicitly show draft placeholders. Project titles, artwork, descriptions, credits, and contact email addresses are missing. About copy is intentionally limited to the confirmed company and partner facts.
 
-Supplied logo: `Main Logo - Clean.png`, copied unchanged to `dist/assets/aporia-logo.png`. Original dimensions 5053 × 5052, RGBA with transparent background, 516,372 bytes. The light panel behind it is website styling, not an artwork edit. It preserves the dark edges and the original proportions. Only this explicitly supplied file was inspected and used.
+Supplied logo: `Main Logo - Clean.png`, copied unchanged to `dist/assets/aporia-logo.png`. Original dimensions 5053 × 5052, RGBA with transparent background, 516,372 bytes. It contains the triangular mark and a small handwritten Aporia Films label, which is visible against the light panel. The panel is website styling, not an artwork edit. It preserves the dark edges and the original proportions. Only this explicitly supplied file was inspected and used.
 
 ## Hosting and ownership
 
