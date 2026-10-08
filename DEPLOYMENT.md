@@ -16,7 +16,11 @@ Approved company introduction/about text; movie titles, images, descriptions and
 
 ## Verification
 
-Both the initial deployment and the GitHub-triggered deployment reached READY. Live Home, Projects, About and Contact each returned HTTP 200 and their expected titles, both with authenticated checks and through the public production address. Live logo and stylesheet hashes match the local files. Local checks cover navigation, page titles/headings, active-page indication, local asset references, image loading, exact original-logo file integrity, keyboard access to the skip link, mobile layouts at 320px and 390px, and the three-column desktop project layout at 1280px. Tested mobile pages had no horizontal overflow. There are no film links or email links until real destinations are supplied.
+The site now has one continuous homepage with Home, Projects, About and Contact in that order. The sticky navigation links point to native fragment IDs within that document. The former `/projects/`, `/about/` and `/contact/` documents redirect to matching homepage sections and include fallback links.
+
+Local verification for this revision covers ordinary scrolling through all four sections, all navigation links, unobscured anchor positions below the sticky header, current-section indication, the three legacy URL redirects, a single H1 and valid heading hierarchy, unique section IDs, local asset references, and desktop (1280px) and narrow-phone (320px) layouts without horizontal overflow. The stylesheet disables smooth scrolling for reduced-motion preferences. The logo, company content, project placeholders and pending emails are unchanged. No film or email destinations have been invented.
+
+The connected GitHub workflow previously reached READY from a push to `main`; subsequent revisions use that same workflow. The owning chat verifies the matching deployment and live homepage after pushing.
 
 GitHub collaboration invitations have not been sent; Andy and Javi's GitHub usernames are still needed. Repository collaborators can propose changes through pull requests. Vercel access for protected previews is managed separately in its dashboard.
 
