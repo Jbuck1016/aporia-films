@@ -90,7 +90,6 @@
 
     // Home
     fill('#partners', founders.map((f, i) => `<li><div><p class="partner-name">${esc(f.name)}</p><p class="label">${esc(f.title)}</p></div><span class="index" aria-hidden="true">${pad(i + 1)}</span></li>`).join(''));
-    fill('#emails', [...founders.map((f) => f.email), site.generalEmail].filter(Boolean).map((m) => `<li>${mailto(m)}</li>`).join(''));
 
     // About page
     fill('#about-long', (site.aboutLong || []).map((p) => `<p>${esc(p)}</p>`).join(''));
@@ -103,8 +102,9 @@
         ${f.email ? `<p class="founder-email">${mailto(f.email)}</p>` : ''}
       </li>`).join(''));
 
-    // Contact page
+    // Every address with who it belongs to: home Contact and the /contact page
     const people = [...founders.filter((f) => f.email).map((f) => [f.name, f.email]), ...(site.generalEmail ? [['General', site.generalEmail]] : [])];
+    fill('#emails', people.map(([who, addr]) => `<li><p class="label">${esc(who)}</p>${mailto(addr)}</li>`).join(''));
     fill('#contact-list', people.map(([who, addr]) => `<li><p class="label">${esc(who)}</p>${mailto(addr)}</li>`).join(''));
     fill('#socials', (site.socials || []).map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join(''));
   }
@@ -329,6 +329,18 @@
     $('#projects').scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth' });
   });
 
+  // Home heading rows: if an H2 wraps onto several lines, its link drops onto its own line beneath it.
+  function stackHeadLinks() {
+    $$('.head-title').forEach((row) => {
+      const h2 = $('h2', row);
+      row.classList.remove('is-stacked');
+      const lines = h2.getBoundingClientRect().height / parseFloat(getComputedStyle(h2).lineHeight);
+      row.classList.toggle('is-stacked', lines > 1.5);
+    });
+  }
+  addEventListener('resize', stackHeadLinks);
+  document.fonts?.ready.then(stackHeadLinks);
+
   renderChrome();
   playIntro();
   observeSections();
@@ -345,6 +357,7 @@
   // has rendered, so land on the section again after it has.
   Promise.all([siteReady, loadFilms()]).then(() => {
     root.classList.add('data-ready');
+    stackHeadLinks();
     const target = isHome && /^#(projects|about|contact)$/.test(location.hash) && $(location.hash);
     if (target) target.scrollIntoView({ behavior: 'instant' });
   });

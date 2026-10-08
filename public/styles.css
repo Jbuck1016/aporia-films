@@ -141,6 +141,12 @@ main, .footer { position: relative; z-index: 1; }
 h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 48px; }
 .section-head h2 { font-size: 56px; }
+/* Heading row on home: the H2 with a bright section link beside it, on the heading's baseline.
+   app.js adds .is-stacked when the H2 runs to more than one line, which puts the link underneath. */
+.head-title { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 32px; row-gap: 12px; }
+.section .head-title h2 { margin-top: 0; }
+.head-title.is-stacked { flex-direction: column; align-items: flex-start; }
+.about .head-title, .contact .head-title { margin-top: 24px; }
 
 .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
 .js .reveal.is-in { opacity: 1; transform: none; }
@@ -228,7 +234,8 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 /* Contact */
 .contact { min-height: calc(100vh - var(--nav-h) - 74px); }
 .contact h2 { margin-top: 24px; font-size: 72px; }
-.emails { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 16px 48px; }
+.emails { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 32px 56px; }
+.emails .label { margin-bottom: 6px; }
 .emails a {
   display: inline-block; padding: 8px 0 6px;
   font-size: 22px; font-weight: 300;
@@ -255,6 +262,9 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .more-link:hover { color: var(--text); border-color: var(--text); }
 .arrow { fill: none; stroke: currentColor; stroke-width: 1.2; transition: transform .35s var(--ease); }
 .more-link:hover .arrow { transform: translateX(3px); }
+.more-link--bright { color: var(--text); }
+.more-link--bright:hover { color: #fff; border-color: #fff; }
+.more-link--bright:hover .arrow { transform: translateX(4px); }
 
 /* Section pages */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -357,6 +367,8 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
   .footer { font-size: 10px; letter-spacing: .1em; }
   .section { padding: 88px var(--gutter); }
   .section-head h2 { font-size: 44px; }
+  .section-head > .label { display: none; }
+  .head-title { flex-direction: column; align-items: flex-start; }
   .about h2 { font-size: 36px; }
   .contact h2 { font-size: 48px; }
   .emails { flex-direction: column; }
