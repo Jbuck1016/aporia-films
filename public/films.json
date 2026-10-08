@@ -1,58 +1,137 @@
-[
-  {
-    "slug": "film-one",
-    "title": "[Film Title]",
-    "year": "2026",
-    "format": "Feature",
-    "status": "In production",
-    "still": "/assets/films/placeholder.jpg",
-    "synopsis": "[One paragraph synopsis.]",
-    "credits": [
-      { "role": "Director", "name": "[Name]" },
-      { "role": "Producer", "name": "Andy Arango" },
-      { "role": "Producer", "name": "Javi Arango" }
-    ],
-    "links": [
-      { "label": "Trailer", "url": "#" }
-    ]
-  },
-  {
-    "slug": "film-two",
-    "title": "[Film Title]",
-    "year": null,
-    "format": "Feature",
-    "status": "In development",
-    "still": "/assets/films/placeholder.jpg",
-    "synopsis": "[One paragraph synopsis.]",
-    "credits": [
-      { "role": "Writer", "name": "[Name]" }
-    ],
-    "links": []
-  },
-  {
-    "slug": "film-three",
-    "title": "[Film Title]",
-    "year": "2025",
-    "format": "Short",
-    "status": "Released",
-    "still": "/assets/films/placeholder.jpg",
-    "synopsis": "[One paragraph synopsis.]",
-    "credits": [
-      { "role": "Director", "name": "[Name]" }
-    ],
-    "links": [
-      { "label": "Watch", "url": "#" }
-    ]
-  },
-  {
-    "slug": "film-four",
-    "title": "[Film Title]",
-    "year": null,
-    "format": "Documentary",
-    "status": "In development",
-    "still": "/assets/films/placeholder.jpg",
-    "synopsis": "[One paragraph synopsis.]",
-    "credits": [],
-    "links": []
-  }
-]
+{
+  "_note": "SAMPLE COPY. Replace before launch.",
+  "films": [
+    {
+      "slug": "the-quiet-hours",
+      "title": "The Quiet Hours",
+      "year": "2026",
+      "format": "Feature",
+      "status": "In production",
+      "featured": true,
+      "still": "/assets/films/placeholder.jpg",
+      "synopsis": "A night-shift nurse in the San Fernando Valley becomes convinced that one of her patients is lying about who he is. Over three shifts, the question stops being about him.",
+      "credits": [
+        {
+          "role": "Director",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Writer",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Producer",
+          "name": "Javi Arango"
+        }
+      ],
+      "links": [
+        {
+          "label": "Trailer",
+          "url": "https://vimeo.com"
+        }
+      ]
+    },
+    {
+      "slug": "salt-flat",
+      "title": "Salt Flat",
+      "year": "2025",
+      "format": "Short",
+      "status": "Released",
+      "featured": true,
+      "still": "/assets/films/placeholder.jpg",
+      "synopsis": "Two estranged sisters drive to scatter their father's ashes on a dry lakebed and cannot agree on where, exactly, he would have wanted to be left.",
+      "credits": [
+        {
+          "role": "Director",
+          "name": "Javi Arango"
+        },
+        {
+          "role": "Writer",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Producer",
+          "name": "Javi Arango"
+        }
+      ],
+      "links": [
+        {
+          "label": "Watch",
+          "url": "https://vimeo.com"
+        }
+      ]
+    },
+    {
+      "slug": "the-understudy",
+      "title": "The Understudy",
+      "year": null,
+      "format": "Feature",
+      "status": "In development",
+      "featured": true,
+      "still": "/assets/films/placeholder.jpg",
+      "synopsis": "A theater understudy who has never gone on begins rehearsing a life that isn't hers.",
+      "credits": [
+        {
+          "role": "Writer",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Producer",
+          "name": "Javi Arango"
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "parallel-parking",
+      "title": "Parallel Parking",
+      "year": "2024",
+      "format": "Documentary",
+      "status": "Released",
+      "featured": true,
+      "still": "/assets/films/placeholder.jpg",
+      "synopsis": "Over one summer, a Los Angeles driving instructor teaches the same lesson to forty students and learns something different from each of them.",
+      "credits": [
+        {
+          "role": "Director",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Producer",
+          "name": "Javi Arango"
+        },
+        {
+          "role": "Editor",
+          "name": "Andy Arango"
+        }
+      ],
+      "links": [
+        {
+          "label": "Watch",
+          "url": "https://vimeo.com"
+        }
+      ]
+    },
+    {
+      "slug": "lowlands",
+      "title": "Lowlands",
+      "year": null,
+      "format": "Series",
+      "status": "In development",
+      "featured": false,
+      "still": "/assets/films/placeholder.jpg",
+      "synopsis": "A limited series about a family that inherits a flood-prone farm and the town that wants them to sell.",
+      "credits": [
+        {
+          "role": "Writer",
+          "name": "Andy Arango"
+        },
+        {
+          "role": "Producer",
+          "name": "Javi Arango"
+        }
+      ],
+      "links": []
+    }
+  ]
+}

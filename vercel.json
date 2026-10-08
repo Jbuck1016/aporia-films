@@ -4,14 +4,8 @@
   "buildCommand": null,
   "installCommand": null,
   "outputDirectory": "public",
-  "redirects": [
-    { "source": "/projects", "destination": "/#projects", "permanent": true },
-    { "source": "/projects/", "destination": "/#projects", "permanent": true },
-    { "source": "/about", "destination": "/#about", "permanent": true },
-    { "source": "/about/", "destination": "/#about", "permanent": true },
-    { "source": "/contact", "destination": "/#contact", "permanent": true },
-    { "source": "/contact/", "destination": "/#contact", "permanent": true }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }] }
   ]

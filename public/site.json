@@ -1,17 +1,37 @@
 {
-  "intro": "[One or two sentences introducing the studio.]",
+  "_note": "SAMPLE COPY. Replace before launch.",
+  "heroIntro": "An independent production company in Los Angeles. We make films that sit with a question longer than is comfortable.",
   "location": "Los Angeles",
   "tagline": "A film production company",
-  "about": {
-    "heading": "Aporia: the moment a question has no easy way out.",
-    "story": "[Studio story.]",
-    "partners": [
-      { "name": "Andy Arango", "role": "Founding Partner" },
-      { "name": "Javi Arango", "role": "Founding Partner" }
-    ]
-  },
-  "contact": {
-    "heading": "Get in touch.",
-    "emails": ["andy@[domain]", "javi@[domain]", "info@[domain]"]
-  }
+  "aboutHeadline": "Aporia: the moment a question has no easy way out.",
+  "aboutShort": "Aporia Films was founded by brothers Andy and Javi Arango to develop and produce character-driven features, shorts and documentaries. We work with first-time and established filmmakers who have a point of view and the patience to earn it.",
+  "aboutLong": [
+    "Aporia Films started with two brothers and a shared conviction that the best stories are the ones that refuse to resolve neatly. We take our name from the Greek for an impasse: the point in an argument where the easy answers run out and the real work begins.",
+    "We develop and produce narrative features, shorts and documentaries. We care about films with a clear voice, a specific world and a reason to exist beyond the pitch. We stay close to our filmmakers from the first draft through delivery.",
+    "We are based in Los Angeles and work with collaborators wherever the story lives. If you are a writer, director or producer with something you cannot stop thinking about, we would like to hear about it."
+  ],
+  "projectsIntro": "Features, shorts and documentaries in development, in production and released.",
+  "generalEmail": "info@aporiafilms.com",
+  "socials": [
+    {
+      "label": "Instagram",
+      "url": "https://instagram.com/aporiafilms"
+    }
+  ],
+  "founders": [
+    {
+      "name": "Andy Arango",
+      "title": "Founding Partner",
+      "email": "andy@aporiafilms.com",
+      "bio": "Andy leads development and creative. He has worked across writers' rooms and independent features, and is drawn to stories about people who are certain of something they shouldn't be.",
+      "photo": null
+    },
+    {
+      "name": "Javi Arango",
+      "title": "Founding Partner",
+      "email": "javi@aporiafilms.com",
+      "bio": "Javi leads production and partnerships. He has produced shorts, commercials and documentary work, and is the person who turns a good idea into a schedule, a budget and a finished film.",
+      "photo": null
+    }
+  ]
 }

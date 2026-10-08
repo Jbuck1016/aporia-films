@@ -10,8 +10,8 @@
 
 ## How it is served
 
-`vercel.json` serves the `public/` folder as static files, with no install and no build step. It also redirects the old `/projects/`, `/about/` and `/contact/` addresses to the matching sections of the homepage. See `DECISIONS.md` for why.
+`vercel.json` serves the `public/` folder as static files, with no install and no build step. Clean URLs are on, so `public/projects/index.html` is served at `/projects` (likewise `/about` and `/contact`). See `DECISIONS.md` for why.
 
 ## Still needed from the founders
 
-The studio introduction, the About story and final headline, real films (stills, synopses, credits, links), real contact email addresses, and a domain if one is planned.
+All text in `site.json` and `films.json` is sample copy and must be replaced. Also needed: real film stills, founder photos, confirmed email addresses and socials, and a domain if one is planned.

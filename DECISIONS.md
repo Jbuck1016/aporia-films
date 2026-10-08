@@ -2,7 +2,19 @@
 
 ## Stack: plain static HTML, CSS and JavaScript (October 2026 rebuild)
 
-The previous draft was a hand-written Node script (`build.mjs` plus `content.mjs`) that pasted strings together into static HTML in `dist/`. It had no framework, no components and no real reuse, so keeping a build step added a layer between the founders and their content without giving anything back. The rebuild is plain static files in `public/`, served by Vercel exactly as they are, with no install and no build. Films come from one file, `public/films.json`, and the editable About and Contact text comes from `public/site.json`. To add a film, Andy and Javi add one JSON entry and drop one image into `public/assets/films/`. Nothing else has to change, nothing can fail to compile, and the page they see locally is byte-for-byte the page that goes live. The old design, the build script and the generated `dist/` folder were deleted. `vercel.json` now serves `public/` directly and redirects the old `/projects/`, `/about/` and `/contact/` URLs to the matching sections.
+The previous draft was a hand-written Node script (`build.mjs` plus `content.mjs`) that pasted strings together into static HTML in `dist/`. It had no framework, no components and no real reuse, so keeping a build step added a layer between the founders and their content without giving anything back. The rebuild is plain static files in `public/`, served by Vercel exactly as they are, with no install and no build. Films come from one file, `public/films.json`, and the editable About and Contact text comes from `public/site.json`. To add a film, Andy and Javi add one JSON entry and drop one image into `public/assets/films/`. Nothing else has to change, nothing can fail to compile, and the page they see locally is byte-for-byte the page that goes live. The old design, the build script and the generated `dist/` folder were deleted. `vercel.json` serves `public/` directly. (The old `/projects/`, `/about/` and `/contact/` redirects were later replaced by real section pages, as described below.)
+
+## Section pages alongside the scrolling home (October 2026)
+
+Home stays a single scrolling page because it is the first impression: the intro, a few featured films, and short versions of About and Contact. Each of those sections now also has a full page (`/projects`, `/about`, `/contact`). These carry what doesn't fit on home: every film with status filters, the long story and founder bios, and a contact form. They also give each part of the studio a clean, shareable URL. All four pages read the same `films.json` and `site.json`, and each founder appears once, in the `founders` array, so names and emails are never duplicated. With no build step, the nav and footer are defined once in `app.js` (`renderChrome`) and written into every page when it loads. Each HTML file keeps a plain static nav only as a no-JavaScript fallback.
+
+How the nav behaves on each page:
+- **On home (`/`):** links are in-page anchors (`#home`, `#projects`, `#about`, `#contact`). They smooth-scroll, and the highlight follows whichever section is in view.
+- **On a section page:** links go back into home (`/#home`, `/#projects`, `/#about`, `/#contact`). The current page's own link points at itself, is marked `aria-current="page"` and is highlighted. Arriving on home this way lands on the section under the sticky nav, re-aligned after the JSON content renders.
+- **Brand mark:** always goes to `/`.
+- **Film deep links:** home uses `/#projects/<slug>`, and `/projects` uses `/projects#<slug>`. Both open the film's panel on load.
+- **Hiding until ready:** section pages keep their content hidden until the JSON has rendered (with a 3s fallback). Without this, the page jumped as text arrived (layout shift around 0.2). Home doesn't need it because its hero reserves space for the intro line.
+- **Clean URLs:** `vercel.json` uses `cleanUrls` with `trailingSlash: false`, so `public/projects/index.html` is served at `/projects`.
 
 ## Smaller calls
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page="home">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,300..500&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="preload" href="/films.json" as="fetch" crossorigin>
+  <link rel="preload" href="/site.json" as="fetch" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <script>
     // Decide before first paint whether the intro plays: once per session, never under reduced motion,
@@ -41,16 +42,17 @@
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
-  <a class="skip-link" href="#projects">Skip to projects</a>
+  <a class="skip-link" href="#content">Skip to content</a>
 
+  <!-- Nav and footer are rendered by app.js (renderChrome). This static copy is only the no-JavaScript fallback. -->
   <header class="nav" id="nav">
-    <a class="nav-brand" href="#home" aria-label="Aporia Films, back to top">
+    <a class="nav-brand" href="/" aria-label="Aporia Films home">
       <img src="/assets/mark-bw-96.png" alt="" width="22" height="26">
       <span>Aporia Films</span>
     </a>
     <nav aria-label="Sections">
       <ul class="nav-links">
-        <li><a href="#home" aria-current="true">Home</a></li>
+        <li><a href="#home">Home</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -60,6 +62,7 @@
 
   <main>
     <section class="hero" id="home" aria-label="Home">
+      <div class="hero-inner" id="content" tabindex="-1">
       <div class="hero-mark">
         <svg class="mark" viewBox="140 80 800 920" role="img" aria-label="Aporia Films logo">
           <g class="faces">
@@ -103,8 +106,9 @@
           </span></span></span>
         </button>
       </div>
-      <h1 class="hero-wordmark"><img src="/assets/wordmark-white.png" alt="Aporia Films" width="320" height="54" fetchpriority="high"></h1>
-      <p class="hero-intro" data-site="intro">[One or two sentences introducing the studio.]</p>
+      <h1 class="hero-wordmark"><img src="/assets/wordmark-white.png" alt="Aporia Films" width="360" height="61" fetchpriority="high"></h1>
+      <p class="hero-intro" data-site="heroIntro"></p>
+      </div>
       <div class="hero-strip label">
         <span data-site="location">Los Angeles</span>
         <span data-site="tagline">A film production company</span>
@@ -121,7 +125,8 @@
         <ul class="grid" id="grid">
           <!-- Cards are generated from /films.json -->
         </ul>
-        <noscript><p class="muted">Turn on JavaScript to see our films.</p></noscript>
+        <noscript><p class="label">Turn on JavaScript to see our films.</p></noscript>
+        <div class="section-foot"><a class="more-link label" href="/projects">All projects<svg class="arrow" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14.5M10.5 1l4 4-4 4"/></svg></a></div>
       </div>
     </section>
 
@@ -129,30 +134,27 @@
       <div class="wrap about-grid reveal">
         <div>
           <p class="label">About</p>
-          <h2 id="about-title" data-site="about.heading">Aporia: the moment a question has no easy way out.</h2>
-          <p class="about-story" data-site="about.story">[Studio story.]</p>
+          <h2 id="about-title" data-site="aboutHeadline"></h2>
+          <p class="about-story" data-site="aboutShort"></p>
         </div>
-        <ul class="partners" id="partners">
-          <li><div><p class="partner-name">Andy Arango</p><p class="label">Founding Partner</p></div><span class="index" aria-hidden="true">01</span></li>
-          <li><div><p class="partner-name">Javi Arango</p><p class="label">Founding Partner</p></div><span class="index" aria-hidden="true">02</span></li>
-        </ul>
+        <ul class="partners" id="partners"></ul>
+      </div>
+      <div class="wrap">
+        <div class="section-foot"><a class="more-link label" href="/about">More about Aporia<svg class="arrow" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14.5M10.5 1l4 4-4 4"/></svg></a></div>
       </div>
     </section>
 
     <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="wrap reveal">
         <p class="label">Contact</p>
-        <h2 id="contact-title" data-site="contact.heading">Get in touch.</h2>
-        <ul class="emails" id="emails">
-          <li><a href="mailto:andy@[domain]">andy@[domain]</a></li>
-          <li><a href="mailto:javi@[domain]">javi@[domain]</a></li>
-          <li><a href="mailto:info@[domain]">info@[domain]</a></li>
-        </ul>
+        <h2 id="contact-title">Get in touch.</h2>
+        <ul class="emails" id="emails"></ul>
+        <div class="section-foot"><a class="more-link label" href="/contact">Contact page<svg class="arrow" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14.5M10.5 1l4 4-4 4"/></svg></a></div>
       </div>
     </section>
   </main>
 
-  <footer class="footer label">
+  <footer class="footer label" id="footer">
     <span>© 2026 Aporia Films</span>
     <img src="/assets/mark-bw-96.png" alt="" width="19" height="22">
     <span data-site="location">Los Angeles</span>
