@@ -75,7 +75,7 @@ function contact() {
 }
 
 await mkdir(new URL('./dist/', import.meta.url), { recursive: true });
-await writeFile(new URL('./dist/index.html', import.meta.url), shell([home(), projects(), about(), contact()].join('\n')));
+await writeFile(new URL('./dist/index.html', import.meta.url), shell([home(), projects(), about(), contact()].join('\n')).replace(/[\t ]+$/gm, ''));
 
 // Keep old shared URLs useful on Vercel and on ordinary static preview servers.
 for (const [name,id] of sections.slice(1)) {
