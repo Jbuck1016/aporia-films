@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aporia Films</title>
+  <meta name="description" content="Aporia Films is a film production company in Los Angeles, founded by Andy Arango and Javi Arango.">
+  <meta name="theme-color" content="#0b0b0b">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Aporia Films">
+  <meta property="og:description" content="A film production company in Los Angeles.">
+  <meta property="og:url" content="https://aporia-films.vercel.app/">
+  <meta property="og:image" content="https://aporia-films.vercel.app/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,300..500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="preload" href="/films.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    // Decide before first paint whether the intro plays: once per session, never under reduced motion,
+    // and not when arriving on a deep link further down the page.
+    (function () {
+      var d = document.documentElement, h = location.hash;
+      d.classList.add('js');
+      try {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('aporia-intro') && (!h || h === '#' || h === '#home')) {
+          d.classList.add('intro');
+          setTimeout(function () { d.classList.remove('intro'); }, 6000);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <a class="skip-link" href="#projects">Skip to projects</a>
+
+  <header class="nav" id="nav">
+    <a class="nav-brand" href="#home" aria-label="Aporia Films, back to top">
+      <img src="/assets/mark-bw-96.png" alt="" width="22" height="26">
+      <span>Aporia Films</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul class="nav-links">
+        <li><a href="#home" aria-current="true">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-label="Home">
+      <div class="hero-mark">
+        <svg class="mark" viewBox="140 80 800 920" role="img" aria-label="Aporia Films logo">
+          <g class="faces">
+            <polygon class="face face-dark" points="153,153 704,477 593,540 262,349 261,990 153,926"/>
+            <polygon class="face" points="153,153 266,90 817,415 704,477"/>
+            <polygon class="face" points="704,477 817,544 372,800 373,673"/>
+            <polygon class="face" points="262,349 373,413 372,800 817,544 818,670 261,990"/>
+          </g>
+          <g class="edges">
+            <path class="seg" pathLength="1" d="M153 153L266 90"/>
+            <path class="seg" pathLength="1" d="M266 90L817 415"/>
+            <path class="seg" pathLength="1" d="M817 415L704 477"/>
+            <path class="seg" pathLength="1" d="M153 153L704 477"/>
+            <path class="seg" pathLength="1" d="M704 477L373 673"/>
+            <path class="seg" pathLength="1" d="M704 477L817 544"/>
+            <path class="seg" pathLength="1" d="M817 544L372 800"/>
+            <path class="seg" pathLength="1" d="M817 544L818 670"/>
+            <path class="seg" pathLength="1" d="M818 670L261 990"/>
+            <path class="seg" pathLength="1" d="M261 990L153 926"/>
+            <path class="seg" pathLength="1" d="M153 926L153 153"/>
+            <path class="seg" pathLength="1" d="M262 349L261 990"/>
+            <path class="seg" pathLength="1" d="M262 349L593 540"/>
+            <path class="seg" pathLength="1" d="M373 413L372 800"/>
+          </g>
+        </svg>
+        <button class="scroll-cue" type="button" aria-label="Scroll to projects">
+          <span class="cube-drift"><span class="cube-lift"><span class="cube-float">
+            <svg class="mark cube" viewBox="700 410 234 265" aria-hidden="true" focusable="false">
+              <polygon class="face face-dark cube-side" points="704,477 817,544 818,670 704,604"/>
+              <polygon class="face" points="928,480 817,415 704,477 817,544"/>
+              <polygon class="face" points="817,544 928,480 930,606 818,670"/>
+              <path class="seg" pathLength="1" d="M928 480L817 415"/>
+              <path class="seg" pathLength="1" d="M817 415L704 477"/>
+              <path class="seg" pathLength="1" d="M704 477L817 544"/>
+              <path class="seg" pathLength="1" d="M817 544L928 480"/>
+              <path class="seg" pathLength="1" d="M928 480L930 606"/>
+              <path class="seg" pathLength="1" d="M930 606L818 670"/>
+              <path class="seg" pathLength="1" d="M818 670L817 544"/>
+              <path class="seg cube-side" pathLength="1" d="M704 477L704 604L818 670"/>
+            </svg>
+          </span></span></span>
+        </button>
+      </div>
+      <h1 class="hero-wordmark"><img src="/assets/wordmark-white.png" alt="Aporia Films" width="320" height="54" fetchpriority="high"></h1>
+      <p class="hero-intro" data-site="intro">[One or two sentences introducing the studio.]</p>
+      <div class="hero-strip label">
+        <span data-site="location">Los Angeles</span>
+        <span data-site="tagline">A film production company</span>
+        <a href="#projects">Scroll</a>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects" aria-labelledby="projects-title">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <h2 id="projects-title">Projects</h2>
+          <p class="label">Selected work</p>
+        </div>
+        <ul class="grid" id="grid">
+          <!-- Cards are generated from /films.json -->
+        </ul>
+        <noscript><p class="muted">Turn on JavaScript to see our films.</p></noscript>
+      </div>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="wrap about-grid reveal">
+        <div>
+          <p class="label">About</p>
+          <h2 id="about-title" data-site="about.heading">Aporia: the moment a question has no easy way out.</h2>
+          <p class="about-story" data-site="about.story">[Studio story.]</p>
+        </div>
+        <ul class="partners" id="partners">
+          <li><div><p class="partner-name">Andy Arango</p><p class="label">Founding Partner</p></div><span class="index" aria-hidden="true">01</span></li>
+          <li><div><p class="partner-name">Javi Arango</p><p class="label">Founding Partner</p></div><span class="index" aria-hidden="true">02</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap reveal">
+        <p class="label">Contact</p>
+        <h2 id="contact-title" data-site="contact.heading">Get in touch.</h2>
+        <ul class="emails" id="emails">
+          <li><a href="mailto:andy@[domain]">andy@[domain]</a></li>
+          <li><a href="mailto:javi@[domain]">javi@[domain]</a></li>
+          <li><a href="mailto:info@[domain]">info@[domain]</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer label">
+    <span>© 2026 Aporia Films</span>
+    <img src="/assets/mark-bw-96.png" alt="" width="19" height="22">
+    <span data-site="location">Los Angeles</span>
+  </footer>
+</body>
+</html>

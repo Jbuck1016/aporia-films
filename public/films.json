@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "film-one",
+    "title": "[Film Title]",
+    "year": "2026",
+    "format": "Feature",
+    "status": "In production",
+    "still": "/assets/films/placeholder.jpg",
+    "synopsis": "[One paragraph synopsis.]",
+    "credits": [
+      { "role": "Director", "name": "[Name]" },
+      { "role": "Producer", "name": "Andy Arango" },
+      { "role": "Producer", "name": "Javi Arango" }
+    ],
+    "links": [
+      { "label": "Trailer", "url": "#" }
+    ]
+  },
+  {
+    "slug": "film-two",
+    "title": "[Film Title]",
+    "year": null,
+    "format": "Feature",
+    "status": "In development",
+    "still": "/assets/films/placeholder.jpg",
+    "synopsis": "[One paragraph synopsis.]",
+    "credits": [
+      { "role": "Writer", "name": "[Name]" }
+    ],
+    "links": []
+  },
+  {
+    "slug": "film-three",
+    "title": "[Film Title]",
+    "year": "2025",
+    "format": "Short",
+    "status": "Released",
+    "still": "/assets/films/placeholder.jpg",
+    "synopsis": "[One paragraph synopsis.]",
+    "credits": [
+      { "role": "Director", "name": "[Name]" }
+    ],
+    "links": [
+      { "label": "Watch", "url": "#" }
+    ]
+  },
+  {
+    "slug": "film-four",
+    "title": "[Film Title]",
+    "year": null,
+    "format": "Documentary",
+    "status": "In development",
+    "still": "/assets/films/placeholder.jpg",
+    "synopsis": "[One paragraph synopsis.]",
+    "credits": [],
+    "links": []
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "intro": "[One or two sentences introducing the studio.]",
+  "location": "Los Angeles",
+  "tagline": "A film production company",
+  "about": {
+    "heading": "Aporia: the moment a question has no easy way out.",
+    "story": "[Studio story.]",
+    "partners": [
+      { "name": "Andy Arango", "role": "Founding Partner" },
+      { "name": "Javi Arango", "role": "Founding Partner" }
+    ]
+  },
+  "contact": {
+    "heading": "Get in touch.",
+    "emails": ["andy@[domain]", "javi@[domain]", "info@[domain]"]
+  }
+}
