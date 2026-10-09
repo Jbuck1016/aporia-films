@@ -97,3 +97,5 @@ The site switches back straight away. The bad change is still saved on GitHub, s
 ## Preview on your own computer (optional)
 
 If Python is installed, open a terminal in the `public` folder, run `python -m http.server 8000`, and visit http://localhost:8000.
+
+_Last confirmed editable from a regular Claude chat: 9 October 2026._
