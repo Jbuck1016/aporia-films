@@ -1,10 +1,8 @@
 # Deployment
 
 - Website: https://aporia-films.vercel.app
-- Private source repository: https://github.com/Jbuck1016/aporia-films
+- Source repository: https://github.com/Jbuck1016/aporia-films
 - Vercel dashboard: https://vercel.com/jbuck1016s-projects/aporia-films
-- Vercel project: `prj_8Z3t7Ry8PClmfLWNXUxyuvDKfgHt`
-- Team: `team_ZhZBoEFZCzzBMdXywePmisVC`
 - Production branch: `main`. Every push to `main` deploys automatically.
 - The production address opens without sign-in. Unique per-deployment URLs sit behind Vercel's default deployment protection.
 
