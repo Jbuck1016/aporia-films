@@ -15,7 +15,7 @@ All four pages read their words from the same two files, so you only ever change
 
 - `public/site.json` holds all the studio text, the founders and the contact details.
 - `public/films.json` holds the list of films.
-- Images go in `public/assets/films/` (film stills) and `public/assets/people/` (founder photos).
+- Images go in `public/assets/films/` (film stills) and `public/assets/founders/` (founder photos).
 
 You can edit these files directly on GitHub in your browser. You don't need to install anything. You never need to touch the `.html`, `.css` or `.js` files. The menu and footer are defined once and appear on every page automatically.
 
@@ -41,8 +41,8 @@ To change the text, open `public/site.json` on GitHub, click the pencil icon, ch
 
 1. Use a square photo, ideally 800 × 800 pixels, saved as a JPG under about 300 KB.
 2. Give it a simple lowercase name such as `andy.jpg`.
-3. On GitHub, open `public/assets/`, click **Add file → Upload files**, and type `people/` in front of the file name so it lands in a `people` folder. Then click **Commit changes**.
-4. In `public/site.json`, change that founder's `"photo": null` to `"photo": "/assets/people/andy.jpg"`.
+3. On GitHub, open `public/assets/`, click **Add file → Upload files**, and type `founders/` in front of the file name so it lands in a `founders` folder. Then click **Commit changes**.
+4. In `public/site.json`, change that founder's `"photo": null` to `"photo": "/assets/founders/andy.jpg"`.
 
 Until a photo is set, the page shows a grey square marked [Photo].
 
@@ -68,15 +68,31 @@ Until a photo is set, the page shows a grey square marked [Photo].
 
 **Featured films:** Home shows every film marked `"featured": true`, in file order. Four works best, since they fill two rows. If no film is featured, Home shows the first four in the file.
 
-To remove a film, delete its entry, including the comma that separated it from the next one.
+To take a film off Home, set `"featured": false`. It stays on /projects. To remove it from the site completely, delete its entry, including the comma that separated it from the next one.
 
 **Linking to one film:** `https://aporia-films.vercel.app/projects#night-swim` opens the Projects page with that film already expanded. `https://aporia-films.vercel.app/#projects/night-swim` does the same on Home, if the film is featured.
+
+## Editing with Claude
+
+You can ask Claude to make changes for you, such as "add this film" or "update my bio". `CLAUDE.md` at the top of the repository tells Claude how this site works. It also sets the rules Claude follows: change only the words and images unless you ask for a design change, never delete a film, and check the content before saving.
+
+Every change, from Claude or made by hand on GitHub, is checked automatically after it is saved. If something is wrong, such as a missing image, a typo in a status or a duplicate slug, the commit gets a red ✗ on GitHub. Click it to see a plain-English list of what to fix. On a computer with Node installed, run `node scripts/check-content.mjs` to run the same check.
 
 ## How changes go live
 
 1. Every change committed to the `main` branch on GitHub is published automatically by Vercel.
 2. It takes about a minute. Refresh the site to see it.
 3. If a page looks unchanged or broken, the usual cause is a missing comma or quotation mark in a `.json` file. Paste the file into https://jsonlint.com to find the line. You can also undo the change from the file's **History** on GitHub.
+
+## Rolling back
+
+If a change breaks the site, you can put the previous version back in about a minute:
+
+1. Open the Vercel dashboard: https://vercel.com/jbuck1016s-projects/aporia-films
+2. Click **Deployments**.
+3. Find the last deployment from before the change, click the **⋯** menu beside it and choose **Promote to Production**.
+
+The site switches back straight away. The bad change is still saved on GitHub, so fix it there (or ask Claude to). The next push to `main` goes live as usual.
 
 ## Preview on your own computer (optional)
 
