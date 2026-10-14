@@ -34,7 +34,7 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
 - `founders`: list of founders, in display order. Each founder has these keys:
   - `name`: full name. It is also used as the label above their email.
   - `title`: role, such as "Founding Partner".
-  - `email`: their address.
+  - `email`: their address, or `null` to show none. A founder's address appears in the Contact sections (labelled with their name) and under their bio on /about. Currently both are `null`, so only `generalEmail` is shown.
   - `bio`: one paragraph for /about.
   - `photo`: `null` until there is a photo, then a path such as `"/assets/founders/andy.jpg"`.
 

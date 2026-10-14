@@ -101,7 +101,8 @@ if (site && (typeof site !== 'object' || Array.isArray(site))) {
       if (!f || typeof f !== 'object' || Array.isArray(f)) return problem(F, entry, 'must be a { ... } object.');
       unknownKeys(F, entry, f, FOUNDER_KEYS);
       for (const key of ['name', 'title', 'bio']) if (!isText(f[key])) problem(F, entry, `"${key}" is required and must be text.`);
-      if (!isText(f.email) || !EMAIL.test(f.email)) problem(F, entry, `email ${show(f.email)} does not look like an email address.`);
+      if (!('email' in f)) problem(F, entry, '"email" is required. Use null to show no personal address.');
+      else if (f.email !== null && (!isText(f.email) || !EMAIL.test(f.email))) problem(F, entry, `email ${show(f.email)} does not look like an email address.`);
       if (!('photo' in f)) problem(F, entry, '"photo" is required. Use null until there is a photo.');
       else if (f.photo !== null) checkImage(F, entry, 'photo', f.photo, '/assets/founders/');
     });
