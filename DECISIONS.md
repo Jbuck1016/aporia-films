@@ -16,6 +16,10 @@ How the nav behaves on each page:
 - **Hiding until ready:** section pages keep their content hidden until the JSON has rendered (with a 3s fallback). Without this, the page jumped as text arrived (layout shift around 0.2). Home doesn't need it because its hero reserves space for the intro line.
 - **Clean URLs:** `vercel.json` uses `cleanUrls` with `trailingSlash: false`, so `public/projects/index.html` is served at `/projects`.
 
+## Coming-soon gate on the domain (October 2026)
+
+Once the domain was connected, the founders wanted it to show only a plain "Coming soon" page while they keep editing copy on the vercel.app address. Both addresses are served by the same Vercel project, so instead of detaching the domain (and redoing the DNS hookup at launch), `middleware.js` checks the address a visitor used. On aporia-films.com or www it returns a self-contained, unbranded page on every path (no site icon, `noindex`, not cached), and on any other address it lets the request through to `public/` untouched. Launching is deleting that one file. This is the only server-side code in the project; it needs no install or build.
+
 ## Smaller calls
 
 - **Grain texture.** `Grain Background.png` is a light, large-format texture with a big triangle printed in it. Tiled as it is, that triangle repeats across the page. `assets/grain.jpg` is a crop of its speckled area, inverted so the specks read light on the dark ground, and sits at 5% opacity in screen blend.

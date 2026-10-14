@@ -7,6 +7,7 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
 - The static website for Aporia Films, a film production company. Live at https://www.aporia-films.com.
 - Vercel serves the `public/` folder exactly as it is. There is no build step, no framework and no `npm install`.
 - Every push to `main` goes live in about 30 seconds.
+- **The public domain is currently gated.** `middleware.js` shows a plain "Coming soon" page on aporia-films.com and www.aporia-films.com. The real site, and every change you push, is visible at https://aporia-films.vercel.app, so give the founders that link for previewing. Only delete `middleware.js` (to launch the site on the domain) when they explicitly ask.
 - There are four pages: Home (`/`), `/projects`, `/about` and `/contact`. All four read their words from the same two JSON files, and the page code renders them in the browser.
 - If you want to preview locally, run `python -m http.server 8000` inside `public/` and open http://localhost:8000.
 
