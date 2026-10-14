@@ -1,6 +1,7 @@
 # Deployment
 
-- Website: https://aporia-films.vercel.app
+- Website: https://www.aporia-films.com (aporia-films.com redirects here; https://aporia-films.vercel.app still works)
+- Domain: registered at GoDaddy (Javi's account). DNS: A record @ points to Vercel, CNAME www points to @. Email (Microsoft 365) records live there too; do not change nameservers.
 - Source repository: https://github.com/Jbuck1016/aporia-films
 - Vercel dashboard: https://vercel.com/jbuck1016s-projects/aporia-films
 - Production branch: `main`. Every push to `main` deploys automatically.

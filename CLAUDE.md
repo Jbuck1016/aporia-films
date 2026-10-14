@@ -4,7 +4,7 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
 
 ## What this is
 
-- The static website for Aporia Films, a film production company. Live at https://aporia-films.vercel.app.
+- The static website for Aporia Films, a film production company. Live at https://www.aporia-films.com.
 - Vercel serves the `public/` folder exactly as it is. There is no build step, no framework and no `npm install`.
 - Every push to `main` goes live in about 30 seconds.
 - There are four pages: Home (`/`), `/projects`, `/about` and `/contact`. All four read their words from the same two JSON files, and the page code renders them in the browser.

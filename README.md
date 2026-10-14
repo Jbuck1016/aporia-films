@@ -1,6 +1,6 @@
 # Aporia Films website
 
-Live at https://aporia-films.vercel.app
+Live at https://www.aporia-films.com
 
 ## How the site is laid out
 
@@ -70,7 +70,7 @@ Until a photo is set, the page shows a grey square marked [Photo].
 
 To take a film off Home, set `"featured": false`. It stays on /projects. To remove it from the site completely, delete its entry, including the comma that separated it from the next one.
 
-**Linking to one film:** `https://aporia-films.vercel.app/projects#night-swim` opens the Projects page with that film already expanded. `https://aporia-films.vercel.app/#projects/night-swim` does the same on Home, if the film is featured.
+**Linking to one film:** `https://www.aporia-films.com/projects#night-swim` opens the Projects page with that film already expanded. `https://www.aporia-films.com/#projects/night-swim` does the same on Home, if the film is featured.
 
 ## Editing with Claude
 
