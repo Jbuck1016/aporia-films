@@ -1,7 +1,7 @@
 # Deployment
 
 - Website: https://www.aporia-films.com (aporia-films.com redirects here; https://aporia-films.vercel.app still works)
-- **Coming-soon gate (on since October 2026):** `middleware.js` shows a plain, unbranded "Coming soon" page on every path of aporia-films.com and www.aporia-films.com, while https://aporia-films.vercel.app keeps serving the real site for previewing copy changes. To launch, delete `middleware.js` and push to `main`; no DNS or dashboard changes are needed.
+- **Launched October 2026.** A temporary "Coming soon" gate (`middleware.js`) hid the domain while the copy and design were finished; it was removed at launch. To bring it back, restore that file from the git history and push.
 - Domain: registered at GoDaddy (Javi's account). DNS: A record @ points to Vercel, CNAME www points to @. Email (Microsoft 365) records live there too; do not change nameservers.
 - Source repository: https://github.com/Jbuck1016/aporia-films
 - Vercel dashboard: https://vercel.com/jbuck1016s-projects/aporia-films

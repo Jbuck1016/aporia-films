@@ -18,7 +18,7 @@ How the nav behaves on each page:
 
 ## Coming-soon gate on the domain (October 2026)
 
-Once the domain was connected, the founders wanted it to show only a plain "Coming soon" page while they keep editing copy on the vercel.app address. Both addresses are served by the same Vercel project, so instead of detaching the domain (and redoing the DNS hookup at launch), `middleware.js` checks the address a visitor used. On aporia-films.com or www it returns a self-contained, unbranded page on every path (no site icon, `noindex`, not cached), and on any other address it lets the request through to `public/` untouched. Launching is deleting that one file. This is the only server-side code in the project; it needs no install or build.
+Once the domain was connected, the founders wanted it to show only a plain "Coming soon" page while they keep editing copy on the vercel.app address. Both addresses are served by the same Vercel project, so instead of detaching the domain (and redoing the DNS hookup at launch), `middleware.js` checks the address a visitor used. On aporia-films.com or www it returns a self-contained, unbranded page on every path (no site icon, `noindex`, not cached), and on any other address it lets the request through to `public/` untouched. Launching is deleting that one file. This is the only server-side code in the project; it needs no install or build. The gate was removed at launch (October 2026).
 
 ## Visual identity (October 2026)
 
