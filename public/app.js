@@ -26,7 +26,7 @@
     $('#footer').innerHTML = `
       <span>© 2026 Aporia Films</span>
       <img src="/assets/mark-bw-96.png" alt="" width="19" height="22">
-      <span>${esc(site.location || 'Los Angeles')}</span>`;
+      <span>${esc(site.location || 'New York · Los Angeles')}</span>`;
   }
 
   /* ---------- Intro (home only) ---------- */
@@ -92,7 +92,9 @@
     fill('#partners', founders.map((f, i) => `<li><div><p class="partner-name">${esc(f.name)}</p><p class="label">${esc(f.title)}</p></div><span class="index" aria-hidden="true">${pad(i + 1)}</span></li>`).join(''));
 
     // About page
-    fill('#about-long', (site.aboutLong || []).map((p) => `<p>${esc(p)}</p>`).join(''));
+    // The long story, or the short About paragraph until one is written
+    const story = site.aboutLong?.length ? site.aboutLong : [site.aboutShort].filter(Boolean);
+    fill('#about-long', story.map((p) => `<p>${esc(p)}</p>`).join(''));
     fill('#founders', founders.map((f) => `
       <li class="founder">
         <div class="founder-photo">${f.photo ? `<img src="${esc(f.photo)}" alt="Portrait of ${esc(f.name)}" width="800" height="800" loading="lazy">` : '<span class="label">[Photo]</span>'}</div>
@@ -142,20 +144,23 @@
   let open = null; // { slug, card, row }
 
   // "Feature · 2026", or just "In development" for films without a date yet
-  const meta = (f) => (f.status === 'In development' ? 'In development' : `${f.format} · ${f.year || f.status}`);
+  const meta = (f) => (f.status === 'In development' ? 'In development' : `${f.format} · ${f.year || 'TBD'}`);
   const filmHash = (slug) => (isHome ? `#projects/${slug}` : `#${slug}`);
   const closedHash = () => (isHome ? '#projects' : location.pathname);
 
   function renderGrid(list) {
     grid.innerHTML = list.map((f, i) => `
-      <li class="card" data-slug="${esc(f.slug)}" data-status="${esc(f.status)}">
-        <img src="${esc(f.still)}" alt="" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
+      <li class="card${f.still ? '' : ' card--nostill'}" data-slug="${esc(f.slug)}" data-status="${esc(f.status)}">
+        ${f.still ? `<img src="${esc(f.still)}" alt="" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : ''}
         <div class="card-body">
           <h3><button class="card-hit" type="button" aria-expanded="false" aria-controls="panel">${esc(f.title)}</button></h3>
           <p class="label">${esc(meta(f))}</p>
         </div>
         <span class="index" aria-hidden="true">${pad(i + 1)}</span>
-      </li>`).join('');
+      </li>`).join('') + `
+      <li class="card card--soon" data-status="soon">
+        <div class="card-body"><h3>Coming soon</h3><p class="label">More projects to be announced</p></div>
+      </li>`;
   }
 
   const columns = () => getComputedStyle(grid).gridTemplateColumns.split(' ').length;
@@ -171,10 +176,10 @@
     return `
       <div class="panel" id="panel" role="region" aria-labelledby="panel-title">
         <div class="panel-inner">
-          <div class="panel-still"><img src="${esc(f.still)}" alt="Still from ${esc(f.title)}" width="1600" height="900"></div>
+          ${f.still ? `<div class="panel-still"><img src="${esc(f.still)}" alt="Still from ${esc(f.title)}" width="1600" height="900"></div>` : '<div class="panel-still" aria-hidden="true"></div>'}
           <div class="panel-text">
             <h3 id="panel-title" tabindex="-1">${esc(f.title)}</h3>
-            <p class="label">${esc([f.format, f.year, f.status].filter(Boolean).join(' · '))}</p>
+            <p class="label">${esc([f.format, f.year || 'TBD', f.status].join(' · '))}</p>
             ${f.synopsis ? `<p class="panel-synopsis">${esc(f.synopsis)}</p>` : ''}
             ${credits ? `<dl class="credits">${credits}</dl>` : ''}
             ${links ? `<div class="panel-links">${links}</div>` : ''}
@@ -245,6 +250,9 @@
   }
 
   function wireFilters() {
+    // With films in only one status, filter buttons would just lead to empty pages, so hide them.
+    const filters = $('.filters');
+    if (filters) filters.hidden = new Set(films.map((f) => f.status)).size < 2;
     const chips = $$('.chip');
     chips.forEach((chip) => chip.addEventListener('click', async () => {
       if (chip.getAttribute('aria-pressed') === 'true') return;

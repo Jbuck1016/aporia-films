@@ -23,12 +23,12 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
 ### site.json keys
 
 - `_note`: a reminder that the copy is sample text. It never shows on the site.
-- `heroIntro`: the sentence under the logo at the top of Home.
+- `heroIntro`: optional sentence under the logo at the top of Home. Currently left out, so nothing shows there.
 - `location`: city label. It appears in the Home intro, the footer and on /contact.
 - `tagline`: short label along the bottom of the Home intro.
 - `aboutHeadline`: the big About sentence, used on Home and as the heading of /about.
 - `aboutShort`: the About paragraph on Home.
-- `aboutLong`: the story on /about, as a list of text strings. Each string is one paragraph.
+- `aboutLong`: the story on /about, as a list of text strings. Each string is one paragraph. Use `[]` to show `aboutShort` there instead (current setting).
 - `projectsIntro`: the line under "All work." on /projects.
 - `generalEmail`: the general address. It is shown on Home and /contact, labelled "General", and it is where the /contact form sends messages.
 - `socials`: list of `{ "label": "Instagram", "url": "https://..." }`, shown on /contact. Use `[]` for none.
@@ -36,21 +36,21 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
   - `name`: full name. It is also used as the label above their email.
   - `title`: role, such as "Founding Partner".
   - `email`: their address, or `null` to show none. A founder's address appears in the Contact sections (labelled with their name) and under their bio on /about. Currently both are `null`, so only `generalEmail` is shown.
-  - `bio`: one paragraph for /about.
+  - `bio`: one paragraph for /about, or `null` for none (current setting).
   - `photo`: `null` until there is a photo, then a path such as `"/assets/founders/andy.jpg"`.
 
 ### films.json keys
 
-The file is `{ "_note": "...", "films": [ ... ] }`. Films appear on the site in the same order as in the file.
+The file is `{ "_note": "...", "films": [ ... ] }`. Films appear on the site in the same order as in the file. A "Coming soon" tile is always added after the last film. The status filter buttons on /projects only appear once films have more than one status.
 
 - `slug`: the film's ID in links (`/projects#night-swim`). Use lowercase letters and numbers joined by single hyphens, with no spaces. Every slug must be unique. Don't change the slug of a published film, because links already shared would break.
 - `title`: the film's title.
-- `year`: four digits in quotes, such as `"2026"`, or `null` if there isn't one yet.
+- `year`: four digits in quotes, such as `"2026"`, or `null` if there isn't one yet (shown as "TBD").
 - `format`: one of `"Feature"`, `"Short"`, `"Documentary"` or `"Series"`.
 - `status`: one of `"Released"`, `"In production"` or `"In development"`. This drives the filter buttons on /projects.
 - `featured`: `true` shows the film on Home as well as /projects. `false`, or leaving the key out, means /projects only. Four featured films fill Home best. If none are featured, Home shows the first four.
-- `still`: an image path such as `"/assets/films/night-swim.jpg"`. The file must exist, and the name must match exactly, including capitals.
-- `synopsis`: one paragraph.
+- `still`: an image path such as `"/assets/films/night-swim.jpg"`, or `null` for a plain tile until there is one. The file must exist, and the name must match exactly, including capitals.
+- `synopsis`: one paragraph, or `null` for none yet.
 - `credits`: a list of `{ "role": "Director", "name": "..." }`. Use `[]` for none.
 - `links`: buttons in the film panel, as a list of `{ "label": "Trailer", "url": "https://..." }`. Use `[]` for none.
 

@@ -99,6 +99,7 @@ main, .footer { position: relative; z-index: 1; }
 .seg { fill: none; stroke: var(--text); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; }
 .hero-wordmark { margin-top: 32px; font-stretch: 112%; font-weight: 300; letter-spacing: -.02em; }
 .hero-wordmark img { width: 360px; height: auto; }
+.hero-intro:empty { display: none; }
 .hero-intro { margin-top: 32px; max-width: 520px; min-height: 3.1em; /* reserves two lines until site.json arrives */ font-size: 18px; line-height: 1.55; color: var(--text-2); font-weight: 300; }
 .hero-strip {
   position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px;
@@ -183,6 +184,11 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .card .index { position: absolute; right: 24px; bottom: 24px; z-index: 2; }
 .index { font: 400 11px/1 var(--mono); letter-spacing: .18em; color: var(--dim); }
 .card:hover img { transform: translateZ(0) scale(1.03); }
+.card--nostill::before { display: none; }
+.card--soon { background: transparent; border-style: dashed; }
+.card--soon::before { display: none; }
+.card--soon h3 { color: var(--text-2); font-weight: 400; }
+.card--soon .label { color: var(--muted); }
 .card:hover .card-body { transform: translate3d(0, -2px, 0); }
 
 /* Detail panel */
@@ -274,6 +280,7 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .page-head h1.page-statement { font-size: 56px; max-width: 760px; line-height: 1.12; }
 .section--tight { padding-top: 56px; }
 
+.filters[hidden] { display: none; }
 .filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
 .chip {
   height: 44px; padding: 0 18px;

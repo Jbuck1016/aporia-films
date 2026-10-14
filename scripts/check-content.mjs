@@ -74,7 +74,8 @@ function checkPairs(file, entry, key, list, a, b, urlKey) {
 
 // ---- site.json ----
 
-const SITE_TEXT = ['heroIntro', 'location', 'tagline', 'aboutHeadline', 'aboutShort', 'projectsIntro'];
+const SITE_TEXT = ['location', 'tagline', 'aboutHeadline', 'aboutShort', 'projectsIntro'];
+const SITE_OPTIONAL_TEXT = ['heroIntro'];
 const FOUNDER_KEYS = ['name', 'title', 'email', 'bio', 'photo'];
 
 const site = readJSON('site.json');
@@ -82,11 +83,12 @@ if (site && (typeof site !== 'object' || Array.isArray(site))) {
   problem('site.json', 'file', 'must be one { ... } object.');
 } else if (site) {
   const F = 'site.json';
-  unknownKeys(F, 'top level', site, ['_note', ...SITE_TEXT, 'aboutLong', 'generalEmail', 'socials', 'founders']);
+  unknownKeys(F, 'top level', site, ['_note', ...SITE_TEXT, ...SITE_OPTIONAL_TEXT, 'aboutLong', 'generalEmail', 'socials', 'founders']);
   if ('_note' in site && typeof site._note !== 'string') problem(F, '_note', 'must be text.');
   for (const key of SITE_TEXT) if (!isText(site[key])) problem(F, key, `is required and must be text. Got ${show(site[key])}.`);
+  for (const key of SITE_OPTIONAL_TEXT) if (key in site && site[key] !== null && !isText(site[key])) problem(F, key, `must be text, or left out to show nothing. Got ${show(site[key])}.`);
 
-  if (!Array.isArray(site.aboutLong) || site.aboutLong.length === 0) problem(F, 'aboutLong', 'must be a list with at least one paragraph.');
+  if (!Array.isArray(site.aboutLong)) problem(F, 'aboutLong', 'must be a list of paragraphs. Use [] to show aboutShort on /about instead.');
   else site.aboutLong.forEach((p, i) => { if (!isText(p)) problem(F, `aboutLong paragraph ${i + 1}`, 'must be text and not empty.'); });
 
   if (!isText(site.generalEmail) || !EMAIL.test(site.generalEmail)) problem(F, 'generalEmail', `${show(site.generalEmail)} does not look like an email address.`);
@@ -100,7 +102,9 @@ if (site && (typeof site !== 'object' || Array.isArray(site))) {
       const entry = `founder ${i + 1}${f && isText(f.name) ? ` (${f.name})` : ''}`;
       if (!f || typeof f !== 'object' || Array.isArray(f)) return problem(F, entry, 'must be a { ... } object.');
       unknownKeys(F, entry, f, FOUNDER_KEYS);
-      for (const key of ['name', 'title', 'bio']) if (!isText(f[key])) problem(F, entry, `"${key}" is required and must be text.`);
+      for (const key of ['name', 'title']) if (!isText(f[key])) problem(F, entry, `"${key}" is required and must be text.`);
+      if (!('bio' in f)) problem(F, entry, '"bio" is required. Use null to show no bio.');
+      else if (f.bio !== null && !isText(f.bio)) problem(F, entry, '"bio" must be text, or null.');
       if (!('email' in f)) problem(F, entry, '"email" is required. Use null to show no personal address.');
       else if (f.email !== null && (!isText(f.email) || !EMAIL.test(f.email))) problem(F, entry, `email ${show(f.email)} does not look like an email address.`);
       if (!('photo' in f)) problem(F, entry, '"photo" is required. Use null until there is a photo.');
@@ -141,8 +145,10 @@ if (films) {
     if (!FORMATS.includes(film.format)) problem(F, entry, `format ${show(film.format)} must be one of ${FORMATS.map(show).join(', ')}.`);
     if (!STATUSES.includes(film.status)) problem(F, entry, `status ${show(film.status)} must be one of ${STATUSES.map(show).join(', ')}.`);
     if ('featured' in film && typeof film.featured !== 'boolean') problem(F, entry, `featured must be true or false, without quotes. Got ${show(film.featured)}.`);
-    checkImage(F, entry, 'still', film.still, '/assets/films/');
-    if (!isText(film.synopsis)) problem(F, entry, '"synopsis" is required and must be text.');
+    if (!('still' in film)) problem(F, entry, '"still" is required. Use null until there is a still.');
+    else if (film.still !== null) checkImage(F, entry, 'still', film.still, '/assets/films/');
+    if (!('synopsis' in film)) problem(F, entry, '"synopsis" is required. Use null until there is one.');
+    else if (film.synopsis !== null && !isText(film.synopsis)) problem(F, entry, '"synopsis" must be text, or null.');
     checkPairs(F, entry, 'credits', film.credits, 'role', 'name');
     checkPairs(F, entry, 'links', film.links, 'label', 'url', 'url');
   });
