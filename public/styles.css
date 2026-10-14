@@ -5,10 +5,11 @@
   --line: #2d3333;
   --line-2: #343b3b;
   --text: #e9eeec;
-  --text-2: #b1bab7;
-  --muted: #96a09d;
+  --text-2: #d0d6d3;
+  --muted: #c5cac9;
   --dim: #5c6664; /* fails 4.5:1 on ground: decorative, aria-hidden labels only */
-  --accent: #8fb5ad; /* faded film-stock cyan, used sparingly: active link, tagline, status, section labels */
+  --accent: #b5cec9; /* faded film-stock cyan, used sparingly: active link, tagline, status, section labels */
+  /* text-2, muted and accent are lighter than the palette swatch so they stay readable on the mottled texture */
   --display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
   --sans: "Hanken Grotesk", system-ui, sans-serif;
   --label: "Hanken Grotesk", system-ui, sans-serif;
@@ -42,15 +43,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* Grain: fixed above the ground, below content */
+/* Texture: soft mottling (like an aged film base) with fine grain on top, behind all content */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("/assets/grain-fine.png") 0 0 / 180px repeat;
-  opacity: .085;
-  mix-blend-mode: overlay;
 }
+.grain::before, .grain::after { content: ""; position: absolute; inset: 0; }
+.grain::before { background: url("/assets/mottle.jpg") 0 0 / 900px repeat; mix-blend-mode: soft-light; opacity: .35; }
+.grain::after { background: url("/assets/grain-fine.png") 0 0 / 180px repeat; mix-blend-mode: overlay; opacity: .12; }
 main, .footer { position: relative; z-index: 1; }
 /* Section pages hold their content until the JSON copy has rendered, so nothing jumps (app.js adds .data-ready). */
 .js:not(.data-ready):not([data-page="home"]) main,
