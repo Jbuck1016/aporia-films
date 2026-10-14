@@ -1,9 +1,9 @@
 /* Aporia Films. Palette and type are fixed by the brand spec; keep to these tokens. */
 :root {
-  --ground: #0b0b0b;
-  --panel: #161616;
-  --line: #1c1c1c;
-  --line-2: #242424;
+  --ground: #1f1f1e;
+  --panel: #2a2a29;
+  --line: #30302f;
+  --line-2: #383837;
   --text: #efeee8;
   --text-2: #b4b3ad;
   --muted: #9a9a94;
@@ -67,7 +67,7 @@ main, .footer { position: relative; z-index: 1; }
   height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 0 var(--gutter);
-  background: rgba(11, 11, 11, .86);
+  background: rgba(31, 31, 30, .86);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
@@ -165,7 +165,7 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
 .card::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(to top, rgba(11, 11, 11, .9) 0%, rgba(11, 11, 11, .55) 30%, rgba(11, 11, 11, 0) 62%);
+  background: linear-gradient(to top, rgba(31, 31, 30, .9) 0%, rgba(31, 31, 30, .55) 30%, rgba(31, 31, 30, 0) 62%);
 }
 .card::after {
   content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
