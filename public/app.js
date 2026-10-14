@@ -21,55 +21,88 @@
       return `<li><a href="/#${id}">${label}</a></li>`;
     };
     $('#nav').innerHTML = `
-      <a class="nav-brand" href="/" aria-label="Aporia Films home"><img src="/assets/mark-bw-96.png" alt="" width="22" height="26"><span>Aporia Films</span></a>
+      <a class="nav-brand" href="/" aria-label="Aporia Films home"><img src="/assets/mark.svg" alt="" width="22" height="25"><span>Aporia Films</span></a>
       <nav aria-label="Sections"><ul class="nav-links">${SECTIONS.map(link).join('')}</ul></nav>`;
     $('#footer').innerHTML = `
       <span>© 2026 Aporia Films</span>
-      <img src="/assets/mark-bw-96.png" alt="" width="19" height="22">
+      <img src="/assets/mark.svg" alt="" width="19" height="22">
       <span>${esc(site.location || 'New York · Los Angeles')}</span>`;
   }
 
-  /* ---------- Intro (home only) ---------- */
+  /* ---------- Intro (home only): the logo is drawn by hand around the play triangle ---------- */
+  // The mark's geometry in vector units, and the patch of that space the hero image covers (see DECISIONS.md).
+  const MARK = { x0: 141.5, y0: 81, w: 798 };
+  const HOLE = [[373, 413], [594, 540], [373, 673]];
+  const MARK_EDGES = [[153, 153, 704, 477], [704, 477, 593, 540], [593, 540, 262, 349], [262, 349, 261, 990], [261, 990, 153, 926], [153, 926, 153, 153], [153, 153, 266, 90], [266, 90, 928, 480], [928, 480, 817, 544], [817, 544, 372, 800], [372, 800, 373, 673], [373, 673, 704, 477], [262, 349, 373, 413], [373, 413, 372, 800], [928, 480, 930, 606], [930, 606, 261, 990]];
+
   function playIntro() {
     if (!root.classList.contains('intro')) return;
+    const img = $('.mark-img'), cv = $('.mark-cv');
+    if (!img || !cv) { root.classList.remove('intro'); return; }
+    const x = cv.getContext('2d');
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const box = cv.getBoundingClientRect();
+    const W = cv.width = Math.round(box.width * dpr), H = cv.height = Math.round(box.height * dpr), k = W / MARK.w;
+    const at = (px, py) => [(px - MARK.x0) * k, (py - MARK.y0) * k];
+    const ink = getComputedStyle(root).getPropertyValue('--text').trim() || '#e9eeec';
+
+    const ease = (v) => (v < .5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
+    const seg = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
+    const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
+    const noise = (u, s) => { const i = Math.floor(u), f = u - i, w = f * f * (3 - 2 * f); return hash(i, s) * (1 - w) + hash(i + 1, s) * w; };
+    const hc = HOLE.reduce((c, q) => [c[0] + q[0] / 3, c[1] + q[1] / 3], [0, 0]);
+    // Lines nearest the triangle are drawn first, so the mark grows outward from it
+    const edges = MARK_EDGES.map((e, i) => ({ e, i, d: Math.hypot((e[0] + e[2]) / 2 - hc[0], (e[1] + e[3]) / 2 - hc[1]) })).sort((a, b) => a.d - b.d);
+
+    function draw(t) {
+      x.clearRect(0, 0, W, H);
+      // 2.2–3.1s: the finished logo fills in beneath the pencil lines
+      const fill = ease(seg(t, 2.2, 3.1));
+      if (fill > 0 && img.complete) { x.globalAlpha = fill; x.drawImage(img, 0, 0, W, H); x.globalAlpha = 1; }
+      // 0.75s on: wobbly double pencil lines grow outward; they fade once the logo is in
+      const lineAlpha = 1 - ease(seg(t, 2.7, 3.3));
+      if (lineAlpha > 0) {
+        x.save(); x.strokeStyle = ink; x.lineCap = 'round'; x.lineJoin = 'round'; x.globalAlpha = lineAlpha;
+        edges.forEach(({ e, i }, n) => {
+          const start = .75 + n * .075, p = ease(seg(t, start, start + .55));
+          if (p <= 0) return;
+          const len = Math.hypot(e[2] - e[0], e[3] - e[1]), nx = -(e[3] - e[1]) / len, ny = (e[2] - e[0]) / len, N = 26;
+          for (let pass = 0; pass < 2; pass++) {
+            x.lineWidth = (pass ? 1.3 : 2.2) * 2.4 * k; x.beginPath();
+            for (let s = 0; s <= N * p; s++) {
+              const u = s / N, w = (noise(u * 3 + i * 7.3, pass * 11) - .5) * 9 + (pass ? 2.5 : 0);
+              const [X, Y] = at(e[0] + (e[2] - e[0]) * u + nx * w, e[1] + (e[3] - e[1]) * u + ny * w);
+              s ? x.lineTo(X, Y) : x.moveTo(X, Y);
+            }
+            x.stroke();
+          }
+        });
+        x.restore();
+      }
+      // 0.1–0.6s: the play triangle appears alone; 1.5–2.4s it sinks back to become the space inside the mark
+      const tIn = ease(seg(t, .1, .6)), tri = tIn * (1 - ease(seg(t, 1.5, 2.4)));
+      if (tri > 0) {
+        const c = at(...hc), sc = .7 + .3 * tIn;
+        x.save(); x.globalAlpha = tri; x.fillStyle = ink; x.beginPath();
+        HOLE.forEach((q, j) => { const [X, Y] = at(...q); const px = c[0] + (X - c[0]) * sc, py = c[1] + (Y - c[1]) * sc; j ? x.lineTo(px, py) : x.moveTo(px, py); });
+        x.closePath(); x.fill(); x.restore();
+      }
+    }
+
     const anims = [];
-    const animate = (el, frames, opts) => { const a = el.animate(frames, { fill: 'both', ...opts }); anims.push(a); return a; };
-    const rand = (min, max) => min + Math.random() * (max - min);
+    const animate = (el, frames, opts) => { if (!el) return; anims.push(el.animate(frames, { fill: 'both', ...opts })); };
+    // 2.8s: the name comes in; 3.3s: the copy and the menu
+    animate($('.hero-wordmark'), [{ opacity: 0, letterSpacing: '.34em', filter: 'blur(4px)' }, { opacity: 1, letterSpacing: '.24em', filter: 'blur(0)' }], { delay: 2800, duration: 800, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    $$('.hero-intro, .hero-strip, .nav').forEach((el) => animate(el, [{ opacity: 0.01 }, { opacity: 1 }], { delay: 3300, duration: 450, easing: 'ease-out' }));
 
-    // 0.0–0.9s: segments draw in at scattered positions; 0.9–1.5s: they settle into place.
-    $$('.hero-mark .seg:not(.cube-side)').forEach((seg) => {
-      seg.style.transformBox = 'fill-box';
-      seg.style.transformOrigin = 'center';
-      const scatter = `translate(${rand(-140, 140).toFixed(0)}px, ${rand(-120, 120).toFixed(0)}px) rotate(${rand(-35, 35).toFixed(0)}deg) scale(${rand(.6, .9).toFixed(2)})`;
-      const delay = rand(0, 450);
-      animate(seg, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay, duration: 900 - delay, easing: 'ease-out' });
-      animate(seg, [
-        { transform: scatter, offset: 0 },
-        { transform: scatter, offset: .6 },
-        { transform: 'none', offset: 1, easing: 'ease' },
-      ], { duration: 1500, easing: 'cubic-bezier(.6,0,.2,1)' });
-    });
-    // Faces close and fill as the outline locks.
-    $$('.hero-mark .face:not(.cube-side)').forEach((face, i) => {
-      animate(face, [{ opacity: 0 }, { opacity: 1 }], { delay: 1050 + i * 70, duration: 380, easing: 'ease-out' });
-    });
-    // 1.5–1.9s: the cube separates up-right and settles.
-    animate($('.cube-drift'), [{ transform: 'none' }, { transform: 'translate(34%, -36%) rotate(8deg)' }], { delay: 1500, duration: 400, easing: 'cubic-bezier(.2,.8,.3,1)' });
-    $$('.cube-side').forEach((el) => {
-      animate(el, [{ opacity: 0, strokeDashoffset: 0 }, { opacity: 1, strokeDashoffset: 0 }], { delay: 1520, duration: 300 });
-    });
-    // 1.9–2.6s: wordmark rises, then the copy and chrome.
-    animate($('.hero-wordmark'), [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { delay: 1900, duration: 450, easing: 'ease-out' });
-    $$('.hero-intro, .hero-strip, .nav').forEach((el) => {
-      animate(el, [{ opacity: 0.01 }, { opacity: 1 }], { delay: 2200, duration: 400, easing: 'ease-out' });
-    });
-
-    let done = false;
+    let done = false, raf = 0, t0 = 0;
     const finish = () => {
       if (done) return;
       done = true;
+      cancelAnimationFrame(raf);
       try { sessionStorage.setItem('aporia-intro', '1'); } catch (e) {}
       root.classList.remove('intro');
+      x.clearRect(0, 0, W, H);
       anims.forEach((a) => a.cancel());
       removeEventListener('pointerdown', finish, true);
       removeEventListener('keydown', onKey, true);
@@ -77,7 +110,13 @@
     const onKey = (e) => { if (e.key === 'Escape') finish(); };
     addEventListener('pointerdown', finish, true);
     addEventListener('keydown', onKey, true);
-    Promise.all(anims.map((a) => a.finished)).then(finish, () => {});
+    const step = (now) => {
+      t0 = t0 || now;
+      const t = (now - t0) / 1000;
+      draw(t);
+      if (t < 3.75) raf = requestAnimationFrame(step); else finish();
+    };
+    raf = requestAnimationFrame(step);
   }
 
   /* ---------- Copy from site.json ---------- */
@@ -144,7 +183,7 @@
   let open = null; // { slug, card, row }
 
   // "Feature · 2026", or just "In development" for films without a date yet
-  const meta = (f) => (f.status === 'In development' ? 'In development' : `${f.format} · ${f.year || 'TBD'}`);
+  const meta = (f) => (f.status === 'In development' ? '<span class="status">In development</span>' : `${esc(f.format)} · ${esc(f.year || 'TBD')} · <span class="status">${esc(f.status)}</span>`);
   const filmHash = (slug) => (isHome ? `#projects/${slug}` : `#${slug}`);
   const closedHash = () => (isHome ? '#projects' : location.pathname);
 
@@ -154,7 +193,7 @@
         ${f.still ? `<img src="${esc(f.still)}" alt="" width="1600" height="900" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">` : ''}
         <div class="card-body">
           <h3><button class="card-hit" type="button" aria-expanded="false" aria-controls="panel">${esc(f.title)}</button></h3>
-          <p class="label">${esc(meta(f))}</p>
+          <p class="label">${meta(f)}</p>
         </div>
         <span class="index" aria-hidden="true">${pad(i + 1)}</span>
       </li>`).join('') + `
@@ -179,7 +218,7 @@
           ${f.still ? `<div class="panel-still"><img src="${esc(f.still)}" alt="Still from ${esc(f.title)}" width="1600" height="900"></div>` : '<div class="panel-still" aria-hidden="true"></div>'}
           <div class="panel-text">
             <h3 id="panel-title" tabindex="-1">${esc(f.title)}</h3>
-            <p class="label">${esc([f.format, f.year || 'TBD', f.status].join(' · '))}</p>
+            <p class="label">${esc(f.format)} · ${esc(f.year || 'TBD')} · <span class="status">${esc(f.status)}</span></p>
             ${f.synopsis ? `<p class="panel-synopsis">${esc(f.synopsis)}</p>` : ''}
             ${credits ? `<dl class="credits">${credits}</dl>` : ''}
             ${links ? `<div class="panel-links">${links}</div>` : ''}
@@ -331,11 +370,6 @@
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
     reveals.forEach((r) => rio.observe(r));
   }
-
-  $('.scroll-cue')?.addEventListener('click', () => {
-    if (root.classList.contains('intro')) return;
-    $('#projects').scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth' });
-  });
 
   // Home heading rows: if an H2 wraps onto several lines, its link drops onto its own line beneath it.
   function stackHeadLinks() {

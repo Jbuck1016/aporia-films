@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aporia Films</title>
   <meta name="description" content="Aporia Films is an independent film production and financing company, founded by Javier Arango and Andres Arango.">
-  <meta name="theme-color" content="#1f1f1e">
+  <meta name="theme-color" content="#1b1e1e">
   <meta name="color-scheme" content="dark">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Aporia Films">
@@ -16,11 +16,12 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/assets/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,300..500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..600&family=Hanken+Grotesk:wght@300;400;500&display=swap">
   <link rel="preload" href="/films.json" as="fetch" crossorigin>
   <link rel="preload" href="/site.json" as="fetch" crossorigin>
   <link rel="stylesheet" href="/styles.css">
@@ -47,7 +48,7 @@
   <!-- Nav and footer are rendered by app.js (renderChrome). This static copy is only the no-JavaScript fallback. -->
   <header class="nav" id="nav">
     <a class="nav-brand" href="/" aria-label="Aporia Films home">
-      <img src="/assets/mark-bw-96.png" alt="" width="22" height="26">
+      <img src="/assets/mark.svg" alt="" width="22" height="25">
       <span>Aporia Films</span>
     </a>
     <nav aria-label="Sections">
@@ -64,49 +65,10 @@
     <section class="hero" id="home" aria-label="Home">
       <div class="hero-inner" id="content" tabindex="-1">
       <div class="hero-mark">
-        <svg class="mark" viewBox="140 80 800 920" role="img" aria-label="Aporia Films logo">
-          <g class="faces">
-            <polygon class="face face-dark" points="153,153 704,477 593,540 262,349 261,990 153,926"/>
-            <polygon class="face" points="153,153 266,90 817,415 704,477"/>
-            <polygon class="face" points="704,477 817,544 372,800 373,673"/>
-            <polygon class="face" points="262,349 373,413 372,800 817,544 818,670 261,990"/>
-          </g>
-          <g class="edges">
-            <path class="seg" pathLength="1" d="M153 153L266 90"/>
-            <path class="seg" pathLength="1" d="M266 90L817 415"/>
-            <path class="seg" pathLength="1" d="M817 415L704 477"/>
-            <path class="seg" pathLength="1" d="M153 153L704 477"/>
-            <path class="seg" pathLength="1" d="M704 477L373 673"/>
-            <path class="seg" pathLength="1" d="M704 477L817 544"/>
-            <path class="seg" pathLength="1" d="M817 544L372 800"/>
-            <path class="seg" pathLength="1" d="M817 544L818 670"/>
-            <path class="seg" pathLength="1" d="M818 670L261 990"/>
-            <path class="seg" pathLength="1" d="M261 990L153 926"/>
-            <path class="seg" pathLength="1" d="M153 926L153 153"/>
-            <path class="seg" pathLength="1" d="M262 349L261 990"/>
-            <path class="seg" pathLength="1" d="M262 349L593 540"/>
-            <path class="seg" pathLength="1" d="M373 413L372 800"/>
-          </g>
-        </svg>
-        <button class="scroll-cue" type="button" aria-label="Scroll to projects">
-          <span class="cube-drift"><span class="cube-lift"><span class="cube-float">
-            <svg class="mark cube" viewBox="700 410 234 265" aria-hidden="true" focusable="false">
-              <polygon class="face face-dark cube-side" points="704,477 817,544 818,670 704,604"/>
-              <polygon class="face" points="928,480 817,415 704,477 817,544"/>
-              <polygon class="face" points="817,544 928,480 930,606 818,670"/>
-              <path class="seg" pathLength="1" d="M928 480L817 415"/>
-              <path class="seg" pathLength="1" d="M817 415L704 477"/>
-              <path class="seg" pathLength="1" d="M704 477L817 544"/>
-              <path class="seg" pathLength="1" d="M817 544L928 480"/>
-              <path class="seg" pathLength="1" d="M928 480L930 606"/>
-              <path class="seg" pathLength="1" d="M930 606L818 670"/>
-              <path class="seg" pathLength="1" d="M818 670L817 544"/>
-              <path class="seg cube-side" pathLength="1" d="M704 477L704 604L818 670"/>
-            </svg>
-          </span></span></span>
-        </button>
+        <img class="mark-img" src="/assets/mark-hero.webp" alt="Aporia Films logo" width="640" height="738" fetchpriority="high">
+        <canvas class="mark-cv" aria-hidden="true"></canvas>
       </div>
-      <h1 class="hero-wordmark"><img src="/assets/wordmark-white.png" alt="Aporia Films" width="360" height="61" fetchpriority="high"></h1>
+      <h1 class="hero-wordmark">Aporia Films</h1>
       <p class="hero-intro" data-site="heroIntro"></p>
       </div>
       <div class="hero-strip label">
@@ -165,7 +127,7 @@
 
   <footer class="footer label" id="footer">
     <span>© 2026 Aporia Films</span>
-    <img src="/assets/mark-bw-96.png" alt="" width="19" height="22">
+    <img src="/assets/mark.svg" alt="" width="19" height="22">
     <span data-site="location">New York · Los Angeles</span>
   </footer>
 </body>
