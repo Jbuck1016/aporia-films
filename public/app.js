@@ -45,6 +45,7 @@
     const W = cv.width = Math.round(box.width * dpr), H = cv.height = Math.round(box.height * dpr), k = W / MARK.w;
     const at = (px, py) => [(px - MARK.x0) * k, (py - MARK.y0) * k];
     const ink = getComputedStyle(root).getPropertyValue('--text').trim() || '#e9eeec';
+    const grain = new Image(); grain.src = '/assets/grain-fine.png';
 
     const ease = (v) => (v < .5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
     const seg = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
@@ -80,21 +81,28 @@
         x.restore();
       }
       // 0.1–0.6s: the play triangle appears alone; 1.5–2.4s it sinks back to become the space inside the mark
+      // The triangle has the same light tone and fine grain as the logo's light sides
       const tIn = ease(seg(t, .1, .6)), tri = tIn * (1 - ease(seg(t, 1.5, 2.4)));
       if (tri > 0) {
         const c = at(...hc), sc = .7 + .3 * tIn;
-        x.save(); x.globalAlpha = tri; x.fillStyle = ink; x.beginPath();
+        x.save(); x.globalAlpha = tri; x.fillStyle = '#f4f6f5'; x.beginPath();
         HOLE.forEach((q, j) => { const [X, Y] = at(...q); const px = c[0] + (X - c[0]) * sc, py = c[1] + (Y - c[1]) * sc; j ? x.lineTo(px, py) : x.moveTo(px, py); });
-        x.closePath(); x.fill(); x.restore();
+        x.closePath(); x.fill();
+        if (grain.complete && grain.naturalWidth) {
+          x.clip();
+          const pat = x.createPattern(grain, 'repeat');
+          if (pat.setTransform) pat.setTransform(new DOMMatrix().scale(k * 1.2));
+          x.globalCompositeOperation = 'multiply'; x.globalAlpha = tri * .2; x.fillStyle = pat; x.fillRect(0, 0, W, H);
+        }
+        x.restore();
       }
     }
 
     const anims = [];
     const animate = (el, frames, opts) => { if (!el) return; anims.push(el.animate(frames, { fill: 'both', ...opts })); };
-    // 2.8s: the name comes in; 3.3s: the copy and the menu
-    // the handwritten name is written on, left to right
-    animate($('.hero-wordmark'), [{ opacity: 1, clipPath: 'inset(0 100% 0 0)' }, { opacity: 1, clipPath: 'inset(0 0 0 0)' }], { delay: 2800, duration: 900, easing: 'cubic-bezier(.45,.05,.4,1)' });
-    $$('.hero-intro, .hero-strip, .nav').forEach((el) => animate(el, [{ opacity: 0.01 }, { opacity: 1 }], { delay: 3300, duration: 450, easing: 'ease-out' }));
+    // 2.8s: the handwritten name fades slowly up into place; 3.5s: the copy and the menu
+    animate($('.hero-wordmark'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { delay: 2800, duration: 1300, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    $$('.hero-intro, .hero-strip, .nav').forEach((el) => animate(el, [{ opacity: 0.01 }, { opacity: 1 }], { delay: 3500, duration: 450, easing: 'ease-out' }));
 
     let done = false, raf = 0, t0 = 0;
     const finish = () => {
@@ -115,7 +123,7 @@
       t0 = t0 || now;
       const t = (now - t0) / 1000;
       draw(t);
-      if (t < 3.75) raf = requestAnimationFrame(step); else finish();
+      if (t < 4.2) raf = requestAnimationFrame(step); else finish();
     };
     raf = requestAnimationFrame(step);
   }
