@@ -100,7 +100,8 @@ main, .footer { position: relative; z-index: 1; }
 .hero-mark { position: relative; width: 300px; max-width: 70vw; aspect-ratio: 640 / 738; }
 .mark-img { width: 100%; height: 100%; }
 .mark-cv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.hero-wordmark { margin: 30px -.24em 0 0; font: 500 30px/1.1 var(--display); letter-spacing: .24em; text-transform: uppercase; }
+.hero-wordmark { margin-top: 30px; line-height: 0; }
+.hero-wordmark img { width: 340px; max-width: 78vw; height: auto; }
 .hero-intro:empty { display: none; }
 .hero-intro { margin-top: 32px; max-width: 520px; min-height: 3.1em; /* reserves two lines until site.json arrives */ font-size: 18px; line-height: 1.55; color: var(--text-2); font-weight: 300; }
 .hero-strip {
@@ -355,12 +356,16 @@ h2 { font-weight: 400; letter-spacing: -.01em; line-height: 1.08; }
   .founders { row-gap: 64px; }
   .section-foot { margin-top: 40px; }
   .hero-mark { width: 200px; }
-  .hero-wordmark { font-size: 21px; margin-top: 22px; }
+  .hero-wordmark { margin-top: 22px; }
+  .hero-wordmark img { width: 240px; }
   .hero-intro { font-size: 17px; }
-  .hero-strip { font-size: 10px; letter-spacing: .1em; gap: 12px; }
-  .hero-strip > * { flex: none; }
-  .hero-strip > :nth-child(2) { flex: 1; text-align: center; }
-  .footer { font-size: 10px; letter-spacing: .1em; }
+  /* phones: tagline over city, centred; no "Scroll" (nobody needs telling on a phone) */
+  .hero-strip { flex-direction: column; gap: 8px; font-size: 11px; letter-spacing: .14em; bottom: max(28px, calc(env(safe-area-inset-bottom, 0px) + 16px)); }
+  .hero-strip > *, .hero-strip > :first-child, .hero-strip > :last-child { flex: none; text-align: center; }
+  .hero-strip > :first-child { order: 2; }
+  .hero-strip > :last-child { display: none; }
+  .footer { font-size: 11px; letter-spacing: .12em; grid-template-columns: 1fr; justify-items: center; gap: 12px; text-align: center; padding-bottom: max(28px, calc(env(safe-area-inset-bottom, 0px) + 16px)); }
+  .footer :last-child { text-align: center; }
   .section { padding: 88px var(--gutter); }
   .section-head h2 { font-size: 44px; }
   .section-head > .label { display: none; }
@@ -380,3 +385,8 @@ h2 { font-weight: 400; letter-spacing: -.01em; line-height: 1.08; }
   *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* Comfortable tap targets for small links */
+.socials a { display: inline-flex; align-items: center; min-height: 44px; }
+.hero-strip a { padding-block: 15px; margin-block: -15px; } /* bigger tap area, same layout */
+.founder:not(:has(.founder-photo)) .founder-name { margin-top: 0; }

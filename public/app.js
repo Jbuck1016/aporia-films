@@ -92,7 +92,8 @@
     const anims = [];
     const animate = (el, frames, opts) => { if (!el) return; anims.push(el.animate(frames, { fill: 'both', ...opts })); };
     // 2.8s: the name comes in; 3.3s: the copy and the menu
-    animate($('.hero-wordmark'), [{ opacity: 0, letterSpacing: '.34em', filter: 'blur(4px)' }, { opacity: 1, letterSpacing: '.24em', filter: 'blur(0)' }], { delay: 2800, duration: 800, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    // the handwritten name is written on, left to right
+    animate($('.hero-wordmark'), [{ opacity: 1, clipPath: 'inset(0 100% 0 0)' }, { opacity: 1, clipPath: 'inset(0 0 0 0)' }], { delay: 2800, duration: 900, easing: 'cubic-bezier(.45,.05,.4,1)' });
     $$('.hero-intro, .hero-strip, .nav').forEach((el) => animate(el, [{ opacity: 0.01 }, { opacity: 1 }], { delay: 3300, duration: 450, easing: 'ease-out' }));
 
     let done = false, raf = 0, t0 = 0;
@@ -136,7 +137,7 @@
     fill('#about-long', story.map((p) => `<p>${esc(p)}</p>`).join(''));
     fill('#founders', founders.map((f) => `
       <li class="founder">
-        <div class="founder-photo">${f.photo ? `<img src="${esc(f.photo)}" alt="Portrait of ${esc(f.name)}" width="800" height="800" loading="lazy">` : '<span class="label">[Photo]</span>'}</div>
+        ${f.photo ? `<div class="founder-photo"><img src="${esc(f.photo)}" alt="Portrait of ${esc(f.name)}" width="800" height="800" loading="lazy"></div>` : ''}
         <h3 class="founder-name">${esc(f.name)}</h3>
         <p class="label">${esc(f.title)}</p>
         ${f.bio ? `<p class="founder-bio">${esc(f.bio)}</p>` : ''}
