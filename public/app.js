@@ -205,10 +205,7 @@
           <p class="label">${meta(f)}</p>
         </div>
         <span class="index" aria-hidden="true">${pad(i + 1)}</span>
-      </li>`).join('') + `
-      <li class="card card--soon" data-status="soon">
-        <div class="card-body"><h3>Coming soon</h3><p class="label">More projects to be announced</p></div>
-      </li>`;
+      </li>`).join('');
   }
 
   const columns = () => getComputedStyle(grid).gridTemplateColumns.split(' ').length;

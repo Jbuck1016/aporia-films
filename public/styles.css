@@ -175,10 +175,6 @@ h2 { font-weight: 300; letter-spacing: -.02em; line-height: 1.08; }
 .index { font: 400 11px/1 var(--label); letter-spacing: .18em; color: var(--dim); }
 .card:hover img { transform: translateZ(0) scale(1.03); }
 .card--nostill::before { display: none; }
-.card--soon { background: transparent; border-style: dashed; }
-.card--soon::before { display: none; }
-.card--soon h3 { color: var(--text-2); font-weight: 400; }
-.card--soon .label { color: var(--muted); }
 .card:hover .card-body { transform: translate3d(0, -2px, 0); }
 
 /* Detail panel */

@@ -41,7 +41,7 @@ You are probably helping Andy or Javi Arango, the founders of Aporia Films. They
 
 ### films.json keys
 
-The file is `{ "_note": "...", "films": [ ... ] }`. Films appear on the site in the same order as in the file. A "Coming soon" tile is always added after the last film. The status filter buttons on /projects only appear once films have more than one status.
+The file is `{ "_note": "...", "films": [ ... ] }`. Films appear on the site in the same order as in the file. The status filter buttons on /projects only appear once films have more than one status.
 
 - `slug`: the film's ID in links (`/projects#night-swim`). Use lowercase letters and numbers joined by single hyphens, with no spaces. Every slug must be unique. Don't change the slug of a published film, because links already shared would break.
 - `title`: the film's title.
